@@ -1,65 +1,20 @@
 package blackjack;
 
+import blackjack.typedefs.CardNum;
+import blackjack.typedefs.CardType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-/**
- *  急ぎ実装したが、CardTypeとCardNumがグローバルになっているのがなんかキモい
- *  【影響範囲】
- *  ・Card
- *  ・Challenger
- *  ・Dealer
- */
-// 使うカードの定義
-enum CardType {
-    //    JOKER(0),
-    SPADE(1),
-    DIAMOND(2),
-    CLOVER(3),
-    HEART(4);
-
-    private int typeId;
-    CardType(int typeId) {
-        this.typeId = typeId;
-    }
-    public int getTypeId() {
-        return this.typeId;
-    }
-}
-enum CardNum {
-    TWO(new int[]{2}), // 書き方よろしくないかもしれない
-    THREE(new int[]{3}),
-    FOUR(new int[]{4}),
-    FIVE(new int[]{5}),
-    SIX(new int[]{6}),
-    SEVEN(new int[]{7}),
-    EIGHT(new int[]{8}),
-    NINE(new int[]{9}),
-    TEN(new int[]{10}),
-    JACK(new int[]{10}),
-    QUEEN(new int[]{10}),
-    KING(new int[]{10}),
-    ACE(new int[]{1, 11});
-
-    private int[] points;
-    CardNum(int[] points) {
-        this.points = points;
-    }
-    public int[] getPoints() {
-        return points;
-    }
-}
-
-// Blackjackゲーム
 public class Blackjack {
     // Blackjackのルール定義
     private final int MAX_SCORE = 21;
     private final int DEALER_MIN_SCORE = 17;
 
     public void play() {
-        Challenger challenger = new Challenger("チャレンジャー");
         Dealer dealer = new Dealer("ディーラー", this.DEALER_MIN_SCORE);
+        Challenger challenger = new Challenger("チャレンジャー");
 
         ArrayList<Card> cardDeck = shuffle();
 
@@ -67,24 +22,28 @@ public class Blackjack {
         int drawCnt = 0;
         while(cardDeck.size() > 0) { // カード山が無くなるまで
             drawCnt = 0;
-            // Challenger
-            if(challenger.wantCard(this.MAX_SCORE)) {
-                challenger.draw(cardDeck.remove(0), MAX_SCORE);
+            // Dealer
+            if(dealer.allowedToDraw() &&
+                    dealer.needCard(this.MAX_SCORE)) {
+                dealer.draw(cardDeck.remove(0), MAX_SCORE);
                 drawCnt++;
             }
 
-            // Dealer
-            if(dealer.wantCard(this.MAX_SCORE)) {
-                dealer.draw(cardDeck.remove(0), MAX_SCORE);
+            // Challenger
+            if(challenger.allowedToDraw() &&
+                    challenger.needCard()) {
+                challenger.draw(cardDeck.remove(0), MAX_SCORE);
                 drawCnt++;
             }
 
             if(drawCnt == 0) {
                 // 全員カードを引くことをやめた場合、勝利判定へ移行
+                System.out.println("=============================================");
                 break;
             }
 
-            printState(dealer, challenger);
+            printStatus(dealer, challenger);
+            System.out.println("=============================================");
         }
 
         // 勝敗判定
@@ -132,7 +91,7 @@ public class Blackjack {
         Arrays.fill(diffs, 0); // 0であるほど目標値に近い。正ならバースト
         for(int i = 0; i < players.size(); i++) {
             diffs[i] = players.get(i).getScore() - MAX_SCORE;
-            if(diffs[i] < 0) {
+            if(diffs[i] <= 0) {
                 if(winnerIndexes == null) {
                     winnerIndexes = new ArrayList<Integer>();
                     winnerIndexes.add(i);
@@ -166,16 +125,10 @@ public class Blackjack {
         return winners;
     }
 
-    private void printState(Dealer dealer, Challenger ...challengers) {
-        System.out.println("[Dealer(" + dealer.getName() + ")]");
-        System.out.println("score: " + dealer.getScore());
-        System.out.println("hands: " + dealer.getStrHands());
-        System.out.println("--------------------------------------------");
+    private void printStatus(Dealer dealer, Challenger ...challengers) {
+        dealer.printStatus();
         for(Challenger challenger: challengers) {
-            System.out.println("[Challenger(" + challenger.getName() + ")]");
-            System.out.println("score: " + challenger.getScore());
-            System.out.println("hands: " + challenger.getStrHands());
+            challenger.printStatus();
         }
-        System.out.println("=============================================");
     }
 }
