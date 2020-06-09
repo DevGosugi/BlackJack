@@ -1,9 +1,11 @@
 package blackjack;
 
+import blackjack.typedefs.*;
+
 public class Card {
     private CardType type;
     private CardNum num;
-    Card(CardType type, CardNum num) {
+    public Card(CardType type, CardNum num) {
         this.type = type;
         this.num = num;
     }
