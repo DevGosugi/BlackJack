@@ -1,12 +1,10 @@
 package test;
 
-import blackjack.Card;
-import blackjack.Challenger;
-import blackjack.Dealer;
-import blackjack.Player;
+import blackjack.*;
 import blackjack.typedefs.*;
-import test.blackjack.TestBlackjack;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -19,7 +17,7 @@ public class Test {
          */
         final int MAX_SCORE = 21;
         final int DEALER_MIN_SCORE = 17;
-        TestBlackjack bj = new TestBlackjack(); // MAX_SCORE, DEALER_MIN_SCORE
+        Blackjack bj = new Blackjack(); // MAX_SCORE, DEALER_MIN_SCORE
         List<Player> expected;
         List<Card> hands;
 
@@ -97,9 +95,23 @@ public class Test {
                 // (4)
 //                dealer
         );
-        assertGetWinner(
-                expected,
-                bj.getWinners(dealer, challengers));
+
+        try {
+            Method getWinners = bj.getClass()
+                    .getDeclaredMethod("getWinners", Dealer.class, Challenger[].class);
+            getWinners.setAccessible(true);
+            assertGetWinner(
+                    expected,
+                    (ArrayList<Player>) getWinners.invoke(bj, dealer, challengers));
+        } catch(NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch(SecurityException e) {
+            e.printStackTrace();
+        } catch(IllegalAccessException e) {
+            e.printStackTrace();
+        } catch(InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void autoDraw(Player player, List<Card> hands, int max_score) {
