@@ -1,6 +1,6 @@
-package main.blackjack;
+package blackjack;
 
-import main.blackjack.typedefs.*;
+import blackjack.typedefs.*;
 
 public class Card {
     private CardType type;

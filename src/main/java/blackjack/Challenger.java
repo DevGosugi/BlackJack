@@ -1,4 +1,4 @@
-package main.blackjack;
+package blackjack;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -44,11 +44,14 @@ public class Challenger extends Player {
                 System.out.print("Select number to add from " + card.getNum().getStrPoints() + ": ");
                 try {
                     selectedNum = Integer.parseInt(sc.next());
-                    if(Arrays.asList(points).contains(selectedNum)) {
-                        break;
+                    if(!Arrays.asList(points).contains(selectedNum)) {
+                        System.out.println("Invalid input!!!");
+                        continue;
                     }
-                } catch(NumberFormatException e) {}
-                System.out.println("Invalid input!!!");
+                    break;
+                } catch(NumberFormatException e) {
+                    System.out.println("Invalid input!!!");
+                }
             }
             this.score += selectedNum;
         }

@@ -1,7 +1,7 @@
-package main.blackjack;
+package blackjack;
 
-import main.blackjack.typedefs.CardNum;
-import main.blackjack.typedefs.CardType;
+import blackjack.typedefs.CardNum;
+import blackjack.typedefs.CardType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
