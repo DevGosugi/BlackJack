@@ -1,7 +1,7 @@
 package test;
 
-import blackjack.*;
-import blackjack.typedefs.*;
+import main.blackjack.*;
+import main.blackjack.typedefs.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,8 +10,25 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-public class Test {
+public class TestBlackjack {
     public static void main(String[] args) {
+        try {
+            testGetWinner();
+        } catch(NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch(SecurityException e) {
+            e.printStackTrace();
+        } catch(IllegalAccessException e) {
+            e.printStackTrace();
+        } catch(InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void testGetWinner() throws NoSuchMethodException,
+            SecurityException, IllegalAccessException, InvocationTargetException, Exception {
         /**
          * テストコードのつもりだけど、ACEへの対応ができていない。
          */
@@ -96,22 +113,12 @@ public class Test {
 //                dealer
         );
 
-        try {
-            Method getWinners = bj.getClass()
-                    .getDeclaredMethod("getWinners", Dealer.class, Challenger[].class);
-            getWinners.setAccessible(true);
-            assertGetWinner(
-                    expected,
-                    (ArrayList<Player>) getWinners.invoke(bj, dealer, challengers));
-        } catch(NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch(SecurityException e) {
-            e.printStackTrace();
-        } catch(IllegalAccessException e) {
-            e.printStackTrace();
-        } catch(InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        Method getWinners = bj.getClass()
+                .getDeclaredMethod("getWinners", Dealer.class, Challenger[].class);
+        getWinners.setAccessible(true);
+        assertGetWinner(
+                expected,
+                (ArrayList<Player>) getWinners.invoke(bj, dealer, challengers));
     }
 
     private static void autoDraw(Player player, List<Card> hands, int max_score) {

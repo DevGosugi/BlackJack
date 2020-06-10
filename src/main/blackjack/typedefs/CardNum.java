@@ -1,4 +1,4 @@
-package blackjack.typedefs;
+package main.blackjack.typedefs;
 
 // 使うカードの定義
 public enum CardNum {
