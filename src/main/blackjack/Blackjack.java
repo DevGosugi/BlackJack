@@ -79,11 +79,11 @@ public class Blackjack {
 
     private ArrayList<Player> getWinners(Dealer dealer, Challenger ...challengers) {
         /**
-         *  - [ ] diffにおいて負かつ最大(つまりMAX_SCORE以下かつMAX_SCOREに近い)がWinner
+         *  - [x] diffにおいて負かつ最大(つまりMAX_SCORE以下かつMAX_SCOREに近い)がWinner
          *      - MAX_SCOREを上回っている場合はcontinue
          *  - [x] 全員がMAX_SCOREを上回った場合はDealerがWinner
          *  - 枚数による判定は無し
-         *      - [ ] よってMAX_SCORE以下かつ同点の場合は引き分け
+         *      - [x] よってMAX_SCORE以下かつ同点の場合は引き分け
          *  - Dealerの、DEALER_MIN_SCOREを下回ることについては、Dealer.wantCard()で下回らないように制御しているので下回ることがない前提とする
          */
         // dealerを先頭にしてリスト化(Dealer勝ち抜けの際の取得のため)
