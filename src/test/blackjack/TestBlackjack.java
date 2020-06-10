@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TestBlackjack {
-    private int max_score;
-    public TestBlackjack(int max_score) {
-        this.max_score = max_score;
+    private int maxScore = 21;
+    private int dealerMinScore = 17;
+
+    public TestBlackjack() {}
+    public TestBlackjack(int maxScore, int dealerMinScore) {
+        this.maxScore = maxScore;
+        this.dealerMinScore = dealerMinScore;
     }
+
     public ArrayList<Player> getWinners(Dealer dealer, Challenger ...challengers) {
-        /**
-         *  - blackjack.Blackjack.getWinner()からコピペして、
-         *      - `MAX_SCORE` -> `this.max_score`
-         */
         // dealerを先頭にしてリスト化(Dealer勝ち抜けの際の取得のため)
         // 微妙
         ArrayList<Player> players = new ArrayList<>();
@@ -27,7 +28,7 @@ public class TestBlackjack {
         int[] diffs = new int[players.size()];
         Arrays.fill(diffs, 0); // 0であるほど目標値に近い。正ならバースト
         for(int i = 0; i < players.size(); i++) {
-            diffs[i] = players.get(i).getScore() - this.max_score;
+            diffs[i] = players.get(i).getScore() - this.maxScore;
             if(diffs[i] <= 0) {
                 if(winnerIndexes == null) {
                     winnerIndexes = new ArrayList<Integer>();
