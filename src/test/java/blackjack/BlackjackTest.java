@@ -3,6 +3,7 @@ package blackjack;
 import blackjack.typedefs.CardNum;
 import blackjack.typedefs.CardType;
 import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -94,6 +95,7 @@ class BlackjackTest {
     }
 
     @Test
+    @DisplayName("getWinners()の結果のテスト")
     public void testGetWinners() {
         setup();
         List<Player> expected = Arrays.asList(
@@ -137,23 +139,28 @@ class BlackjackTest {
         if(setResult.size() != result.size()) {
             isMatched = false;
         }
-        if(!setExpected.equals(setResult)) {
-            isMatched = false;
-        }
 
-        if(isMatched) {
-            System.out.println("[OK]");
-            System.out.println("Expected: " + expected);
-            System.out.println("Result  : " + result);
-        } else {
-            System.out.println("[Not matched]");
-            System.out.println("Expected: " + expected);
-            System.out.println("Result  : " + result);
-        }
+        // 手作りAssertion
+//        if(!setExpected.equals(setResult)) {
+//            isMatched = false;
+//        }
+//        if(isMatched) {
+//            System.out.println("[OK]");
+//            System.out.println("Expected: " + expected);
+//            System.out.println("Result  : " + result);
+//        } else {
+//            System.out.println("[Not matched]");
+//            System.out.println("Expected: " + expected);
+//            System.out.println("Result  : " + result);
+//        }
+
+        // Set同士のAssertもいけるんやな
+        assertAll("Result of getWinners()",
+                () -> assertEquals(setExpected, setResult));
     }
 
-    @AfterEach
-    void border() {
-        System.out.println("==========================================");
-    }
+//    @AfterEach
+//    void border() {
+//        System.out.println("==========================================");
+//    }
 }
