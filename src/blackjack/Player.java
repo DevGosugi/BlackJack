@@ -33,12 +33,12 @@ public abstract class Player {
 
     // abstract public boolean needCard(); // サブクラスごとに引数が異なるためコメントアウト
 
-    public void draw(Card card, int max_score) {
+    public void draw(Card card, int maxScore) {
         hands.add(card);
-        addScore(card, max_score);
+        addScore(card, maxScore);
     }
 
-    abstract protected void addScore(Card card, int max_score);
+    abstract protected void addScore(Card card, int maxScore);
 
     abstract public void printStatus();
 }

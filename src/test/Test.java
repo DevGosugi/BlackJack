@@ -19,7 +19,7 @@ public class Test {
          */
         final int MAX_SCORE = 21;
         final int DEALER_MIN_SCORE = 17;
-        TestBlackjack bj = new TestBlackjack(MAX_SCORE);
+        TestBlackjack bj = new TestBlackjack(); // MAX_SCORE, DEALER_MIN_SCORE
         List<Player> expected;
         List<Card> hands;
 

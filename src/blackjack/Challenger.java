@@ -32,7 +32,7 @@ public class Challenger extends Player {
     }
 
     @Override
-    protected void addScore(Card card, int max_score) {
+    protected void addScore(Card card, int maxScore) {
         Integer[] points = card.getNum().getPoints();
         if(points.length == 1) {
             this.score += card.getNum().getPoints()[0];

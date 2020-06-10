@@ -9,7 +9,7 @@ public class Dealer extends Player {
         this.minScore = minScore;
     }
 
-    public boolean needCard(int max_score) {
+    public boolean needCard(int maxScore) {
         if(this.hands.size() == 0) {
             return true;
         }
@@ -17,7 +17,7 @@ public class Dealer extends Player {
             // Dealerの最低点を下回っている場合は必ずもう1枚取るようにする
             return true;
         }
-        if(this.score >= minScore) { // max_score
+        if(this.score >= minScore) { // maxScore
             this.stopDrawing = true;
             return false;
         }
@@ -28,7 +28,7 @@ public class Dealer extends Player {
     }
 
     @Override
-    protected void addScore(Card card, int max_score) {
+    protected void addScore(Card card, int maxScore) {
         Integer[] points = card.getNum().getPoints();
         if(points.length == 1) {
             this.score += card.getNum().getPoints()[0];
@@ -49,7 +49,7 @@ public class Dealer extends Player {
                     this.score += points[i];
                     break;
                 }
-                if(this.score + points[i] > max_score) {
+                if(this.score + points[i] > maxScore) {
                     continue;
                 }
                 this.score += points[i];
