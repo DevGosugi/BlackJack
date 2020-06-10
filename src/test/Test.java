@@ -110,8 +110,8 @@ public class Test {
 
     private static void assertGetWinner(List<Player> expected, ArrayList<Player> result) {
         boolean isMatched = true;
-        HashSet setExpected = new HashSet(expected);
-        HashSet setResult = new HashSet(result);
+        HashSet<Player> setExpected = new HashSet<>(expected);
+        HashSet<Player> setResult = new HashSet<>(result);
         if(setExpected.size() != expected.size()) {
             isMatched = false;
         }
