@@ -9,11 +9,17 @@ import java.util.Collections;
 
 public class Blackjack {
     // Blackjackのルール定義
-    private final int MAX_SCORE = 21;
-    private final int DEALER_MIN_SCORE = 17;
+    private int maxScore = 21;
+    private int dealerMinScore = 17;
+
+    public Blackjack() {}
+    public Blackjack(int maxScore, int dealerMinScore) {
+        this.maxScore = maxScore;
+        this.dealerMinScore = dealerMinScore;
+    }
 
     public void play() {
-        Dealer dealer = new Dealer("ディーラー", this.DEALER_MIN_SCORE);
+        Dealer dealer = new Dealer("ディーラー", this.dealerMinScore);
         Challenger challenger = new Challenger("チャレンジャー");
 
         ArrayList<Card> cardDeck = shuffle();
@@ -24,15 +30,15 @@ public class Blackjack {
             drawCnt = 0;
             // Dealer
             if(dealer.allowedToDraw() &&
-                    dealer.needCard(this.MAX_SCORE)) {
-                dealer.draw(cardDeck.remove(0), MAX_SCORE);
+                    dealer.needCard(this.maxScore)) {
+                dealer.draw(cardDeck.remove(0), this.maxScore);
                 drawCnt++;
             }
 
             // Challenger
             if(challenger.allowedToDraw() &&
                     challenger.needCard()) {
-                challenger.draw(cardDeck.remove(0), MAX_SCORE);
+                challenger.draw(cardDeck.remove(0), this.maxScore);
                 drawCnt++;
             }
 
@@ -90,7 +96,7 @@ public class Blackjack {
         int[] diffs = new int[players.size()];
         Arrays.fill(diffs, 0); // 0であるほど目標値に近い。正ならバースト
         for(int i = 0; i < players.size(); i++) {
-            diffs[i] = players.get(i).getScore() - MAX_SCORE;
+            diffs[i] = players.get(i).getScore() - this.maxScore;
             if(diffs[i] <= 0) {
                 if(winnerIndexes == null) {
                     winnerIndexes = new ArrayList<Integer>();
