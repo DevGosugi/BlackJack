@@ -27,7 +27,7 @@ public class Test {
                 "ディーラー",
                 DEALER_MIN_SCORE);
         hands = Arrays.asList(
-                // (1)チャレンジャー勝ち抜け
+                // (1)チャレンジャー勝ち
 //                new Card(CardType.CLOVER, CardNum.FOUR),
 //                new Card(CardType.CLOVER, CardNum.QUEEN),
 //                new Card(CardType.SPADE, CardNum.QUEEN)
@@ -38,10 +38,20 @@ public class Test {
 //                new Card(CardType.CLOVER, CardNum.FOUR)
 
                 // (3)引き分け
-                new Card(CardType.SPADE, CardNum.SIX),
-                new Card(CardType.DIAMOND, CardNum.FOUR),
-                new Card(CardType.CLOVER, CardNum.THREE),
-                new Card(CardType.HEART, CardNum.SIX)
+//                new Card(CardType.SPADE, CardNum.SIX),
+//                new Card(CardType.DIAMOND, CardNum.FOUR),
+//                new Card(CardType.CLOVER, CardNum.THREE),
+//                new Card(CardType.HEART, CardNum.SIX)
+
+                // (4)ディーラー勝ち
+//                new Card(CardType.HEART, CardNum.FOUR),
+//                new Card(CardType.SPADE, CardNum.TWO),
+//                new Card(CardType.SPADE, CardNum.THREE)
+
+                // (5)引き分け
+                new Card(CardType.SPADE, CardNum.THREE),
+                new Card(CardType.SPADE, CardNum.EIGHT),
+                new Card(CardType.SPADE, CardNum.KING)
         );
         autoDraw(dealer, hands, MAX_SCORE);
 
@@ -59,8 +69,18 @@ public class Test {
 //                new Card(CardType.DIAMOND, CardNum.SIX)
 
                 // (3)
-                new Card(CardType.DIAMOND, CardNum.QUEEN),
-                new Card(CardType.HEART, CardNum.NINE)
+//                new Card(CardType.DIAMOND, CardNum.QUEEN),
+//                new Card(CardType.HEART, CardNum.NINE)
+
+                // (4)
+//                new Card(CardType.DIAMOND, CardNum.TEN),
+//                new Card(CardType.SPADE, CardNum.SEVEN),
+//                new Card(CardType.HEART, CardNum.QUEEN)
+
+                // (5)
+                new Card(CardType.DIAMOND, CardNum.THREE),
+                new Card(CardType.DIAMOND, CardNum.EIGHT),
+                new Card(CardType.DIAMOND, CardNum.KING)
         );
         autoDraw(challenger, hands, MAX_SCORE);
         Challenger[] challengers = {
@@ -71,10 +91,10 @@ public class Test {
                 // (1)
 //                challenger
 
-                // (2), (3)
+                // (2), (3), (5)
                 challenger, dealer
 
-                //
+                // (4)
 //                dealer
         );
         assertGetWinner(
