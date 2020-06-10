@@ -1,7 +1,7 @@
-package test;
+package blackjack;
 
-import main.blackjack.*;
-import main.blackjack.typedefs.*;
+import blackjack.*;
+import blackjack.typedefs.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class TestBlackjack {
     public static void main(String[] args) {
